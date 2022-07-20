@@ -57,7 +57,6 @@ export default function TimeTable(props) {
       formdata.client_id = props.client.id;
       formdata.day = document.getElementById("day" + index).value;
       formdata.time = document.getElementById("time" + index).value;
-      formdata.fees = document.getElementById("fees" + index).value;
       fetch(`http://127.0.0.1:8000/api/book/store`, {
         method: "POST",
         headers: {
@@ -128,8 +127,7 @@ export default function TimeTable(props) {
                 fontSize: "18px",
               }}
             >
-              {" "}
-              {item.day}{" "}
+              {item.day}
             </b>
             <br />
             {item.time_slot
@@ -167,12 +165,6 @@ export default function TimeTable(props) {
                             id={"day" + index + item.day}
                             name="day"
                             value={item.day}
-                          />
-                          <input
-                            type="hidden"
-                            id={"fees" + index + item.day}
-                            name="fees"
-                            value={item.fees}
                           />
                           <button
                             className="btn mb-3 btn-sm"

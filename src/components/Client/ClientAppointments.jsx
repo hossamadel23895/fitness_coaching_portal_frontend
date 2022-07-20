@@ -35,7 +35,6 @@ function ClientAppointments({ client, updateMainComponent }) {
                 <th scope="col">Coach</th>
                 <th scope="col">day</th>
                 <th scope="col">Time</th>
-                <th scope="col">Fees</th>
                 <th scope="col">Status</th>
                 <th scope="col"> Cancel </th>
               </tr>
@@ -54,7 +53,6 @@ function ClientAppointments({ client, updateMainComponent }) {
                         <td>{item.coach.name_en}</td>
                         <td>{item.day}</td>
                         <td>{item.time}</td>
-                        <td>{item.fees}</td>
                         <td>
                           {item.confirm ? (
                             <span className="badge badge-success">
