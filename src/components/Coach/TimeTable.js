@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Moment from "moment";
-import Cookies from "universal-cookie";
 import { Link, Navigate } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
-function TimeTable(props) {
+export default function TimeTable(props) {
+  const navigate = useNavigate();
+
+  const cookies = new Cookies();
+  const isAuthenticated = cookies.get("jwt");
+
   const [redirect, setRedirect] = useState(false);
 
   const settings = {
@@ -40,40 +46,39 @@ function TimeTable(props) {
     },
   };
 
-  const cookies = new Cookies();
-  const isAuthenticated = cookies.get("jwt");
   const alert = useAlert();
   //Submit form to Book a Coach
   const submit = (index) => (e) => {
     e.preventDefault();
-    let formdata = {};
-    formdata.address_id = document.getElementById("address_id" + index).value;
-    formdata.coach_id = document.getElementById("coach_id" + index).value;
-    formdata.client_id = props.client.id;
-    formdata.day = document.getElementById("day" + index).value;
-    formdata.time = document.getElementById("time" + index).value;
-    formdata.fees = document.getElementById("fees" + index).value;
-    fetch(`http://127.0.0.1:8000/api/book/store`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formdata),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        setRedirect(true);
-        setIsRendered(false);
-        props.updateMainComponent();
-        alert.success("Reserve Appointment sucessfully");
-
-        setIsRendered(true);
+    if (isAuthenticated) {
+      let formdata = {};
+      formdata.address_id = document.getElementById("address_id" + index).value;
+      formdata.coach_id = document.getElementById("coach_id" + index).value;
+      formdata.client_id = props.client.id;
+      formdata.day = document.getElementById("day" + index).value;
+      formdata.time = document.getElementById("time" + index).value;
+      formdata.fees = document.getElementById("fees" + index).value;
+      fetch(`http://127.0.0.1:8000/api/book/store`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formdata),
       })
-      .catch((error) => {
-        alert.error("Fail to reserve appointment");
-        console.log("error", error);
-      });
+        .then(() => {
+          alert.success("Appointment was reserved successfully");
+          setTimeout(() => {
+            window.location.href = "http://localhost:3006/my-appointments";
+          }, 1500);
+        })
+        .catch((error) => {
+          alert.error("Fail to reserve appointment");
+          console.log("error", error);
+        });
+    } else {
+      alert.error("You have to login first to be able to book an appointment");
+    }
   };
 
   //Get Time Tables of Specified Coach
@@ -87,7 +92,6 @@ function TimeTable(props) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setTimes(data);
       })
       .catch((error) => {
@@ -121,7 +125,7 @@ function TimeTable(props) {
                 borderRadius: "4px",
                 padding: "2px",
                 fontWeight: "bold",
-                fontSize:"18px",
+                fontSize: "18px",
               }}
             >
               {" "}
@@ -170,37 +174,19 @@ function TimeTable(props) {
                             name="fees"
                             value={item.fees}
                           />
-
-                          {isAuthenticated === undefined ? (
-                            <Link
-                              to="/login"
-                              className="btn mb-3 btn-sm"
-                              style={{
-                                color: "white",
-                                fontWeight: "bold",
-                                border: "2px solid #ffffff",
-                                marginTop: "10px",
-                                borderRadius: "10px",
-                                background: "#a99ba7",
-                              }}
-                            >
-                              {Moment(i.starts, "HH:mm").format("hh:mm A")}
-                            </Link>
-                          ) : (
-                            <button
-                              className="btn mb-3 btn-sm"
-                              style={{
-                                color: "white",
-                                fontWeight: "bold",
-                                border: "2px solid #ffffff",
-                                marginTop: "10px",
-                                borderRadius: "10px",
-                                background: "#a99ba7",
-                              }}
-                            >
-                              {Moment(i.starts, "HH:mm").format("hh:mm A")}
-                            </button>
-                          )}
+                          <button
+                            className="btn mb-3 btn-sm"
+                            style={{
+                              color: "white",
+                              fontWeight: "bold",
+                              border: "2px solid #ffffff",
+                              marginTop: "10px",
+                              borderRadius: "10px",
+                              background: "#a99ba7",
+                            }}
+                          >
+                            {Moment(i.starts, "HH:mm").format("hh:mm A")}
+                          </button>
                         </form>
                       </div>
                     );
@@ -254,5 +240,3 @@ function TimeTable(props) {
     </section>
   );
 }
-
-export default TimeTable;

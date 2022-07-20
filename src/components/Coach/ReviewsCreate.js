@@ -1,33 +1,44 @@
 import React, { useState } from "react";
 import Cookies from "universal-cookie";
+import { useAlert } from "react-alert";
 
 function ReviewsCreate(props) {
   const [rate, setRate] = useState("");
   const [comment, setComment] = useState("");
 
+  const alert = useAlert();
+
+  const cookies = new Cookies();
+  const isAuthenticated = cookies.get("jwt");
+
   //Send Rate and Comment of Client on Coach
   const submit = (e) => {
     e.preventDefault();
-    let formData = {};
-    formData.rate = rate;
-    formData.comment = comment;
-    formData.client_id = 1;
-    formData.coach_id = props.id;
 
-    fetch(`http://127.0.0.1:8000/api/feedbacks`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        props.updateCoachComponent();
+    if (isAuthenticated) {
+      let formData = {};
+      formData.rate = rate;
+      formData.comment = comment;
+      formData.client_id = 1;
+      formData.coach_id = props.id;
+
+      fetch(`http://127.0.0.1:8000/api/feedbacks`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       })
-      .catch((error) => {
-        console.log("error", error);
-      });
+        .then((response) => {
+          props.updateCoachComponent();
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    }else{
+      alert.error("You have to login first to be able to Submit a review");
+    }
   };
 
   return (
@@ -41,12 +52,7 @@ function ReviewsCreate(props) {
               </h5>
             </div>
             <div class="card-body">
-              <form
-                name="review"
-                action="http://127.0.0.1:8000/api/feedbacks"
-                onSubmit={submit}
-                method="POST"
-              >
+              <form name="review" onSubmit={submit} method="POST">
                 <div class="modal-body modal-rating">
                   <div class="rating">
                     <input

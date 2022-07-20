@@ -1,7 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-function Login(props) {
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+
+export default function Login(props) {
+  const navigate = useNavigate();
+  const cookies = new Cookies();
+  const isAuthenticated = cookies.get("jwt");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      return navigate("/home");
+    }
+  }, []);
+
   const alert = useAlert();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -143,5 +156,3 @@ function Login(props) {
     </React.Fragment>
   );
 }
-
-export default Login;

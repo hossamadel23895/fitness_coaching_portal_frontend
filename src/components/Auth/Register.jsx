@@ -47,7 +47,7 @@ function Register() {
         formdata.append("date_of_birth", date_of_birth);
         formdata.append("gender", gender);
         formdata.append("image", image);
-        fetch("http://localhost:8000/api/signup", {
+        fetch("http://localhost:8000/api/register", {
           method: "POST",
           headers: { "X-Requested-With": "XMLHttpRequest" },
           body: formdata,
@@ -112,7 +112,6 @@ function Register() {
               <input
                 type="text"
                 className="form-control"
-                placeholder="English Name"
                 required
                 onChange={(e) => setName_en(e.target.value)}
               />
@@ -170,7 +169,7 @@ function Register() {
 
             <div className="input-group mb-3">
               <input
-                type="test"
+                type="number"
                 className="form-control"
                 placeholder="Mobile"
                 required

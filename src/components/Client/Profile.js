@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
 
-function Profile(props) {
+export default function Profile(props) {
+  const navigate = useNavigate();
+
   const alert = useAlert();
 
   const [profileImg, setProfileImg] = useState("");
@@ -78,7 +81,9 @@ function Profile(props) {
         if (response.status === 200) {
           setErrors({});
           alert.success(response.message);
-          props.updateMainComponent();
+          setTimeout(() => {
+            window.location.href = "http://localhost:3006/profile";
+          }, 1000);
         } else {
           setErrors(response.errors);
           alert.error(response.message);
@@ -164,7 +169,6 @@ function Profile(props) {
                       type="password"
                       className="form-control"
                       autoComplete="on"
-                      required
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
@@ -175,7 +179,6 @@ function Profile(props) {
                       type="password"
                       className="form-control"
                       autoComplete="on"
-                      required
                       onChange={(e) => setPasswordConfirm(e.target.value)}
                     />
                   </div>
@@ -183,7 +186,7 @@ function Profile(props) {
                   <div className="form-group col-lg-4 col-md-6">
                     <label>Mobile</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       required
                       onChange={(e) => setMobile(e.target.value)}
@@ -247,5 +250,3 @@ function Profile(props) {
     );
   }
 }
-
-export default Profile;

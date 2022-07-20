@@ -110,11 +110,6 @@ function Navbar(props) {
                     Coaches
                   </NavLink>
                 </li>
-                <li className="nav-item h5">
-                  <NavLink className="nav-link mt-2" to="contact-us">
-                    Contact us
-                  </NavLink>
-                </li>
               </ul>
               {links}
             </div>

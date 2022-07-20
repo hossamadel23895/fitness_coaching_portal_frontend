@@ -151,7 +151,6 @@ function SearchBar({ updateCoaches }) {
                 id="coach"
                 type="text"
                 name="coach"
-                placeholder="English Name"
                 value={nameEn}
                 onChange={handleNameChange}
               />

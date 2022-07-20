@@ -25,6 +25,7 @@ import "./static/fonts/fontawesome/css/all.min.css";
 import "./static/fonts/flaticon/font/flaticon.css";
 import "./static/css/style.css";
 import "./App.css";
+import NotFound from "./components/Pages/NotFound";
 
 function App() {
   const [updateApp, setUpdateApp] = useState(false);
@@ -113,6 +114,7 @@ function App() {
               />
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </BrowserRouter>
