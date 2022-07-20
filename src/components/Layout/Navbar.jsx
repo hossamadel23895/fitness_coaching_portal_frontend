@@ -98,7 +98,7 @@ function Navbar(props) {
             </button>
 
             <div className="collapse navbar-collapse" id="navbarsExample05">
-              <ul className="navbar-nav ml-auto">
+              <ul className="navbar-nav mr-auto">
                 <li className="nav-item h5">
                   <NavLink className="nav-link mt-2" to="/">
                     Home
