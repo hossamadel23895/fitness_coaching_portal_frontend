@@ -69,10 +69,12 @@ function SearchTable(props) {
     _sortingOptions.push(
       filterOptionObjectCreator("priceDesc", "Price (High to low)", "priceDesc")
     );
+    _sortingOptions.push(
+      filterOptionObjectCreator("rateDesc", "Rate (High to low)", "rateDesc")
+    );
 
     return _sortingOptions;
   };
-
   const sortingOptions = createSortingOptions();
 
   const sortCoaches = (coaches, sortAttribute, pattern) => {
@@ -80,9 +82,9 @@ function SearchTable(props) {
     if (sortAttribute != "sort") {
       let sortedCoaches = [...coaches];
       sortedCoaches.sort((a, b) =>
-        pattern.includes("Asc")
-          ? a[sortAttribute] - b[sortAttribute]
-          : b[sortAttribute] - a[sortAttribute]
+        pattern.includes("Desc")
+          ? b[sortAttribute] - a[sortAttribute]
+          : a[sortAttribute] - b[sortAttribute]
       );
       return sortedCoaches;
     } else {
@@ -92,8 +94,26 @@ function SearchTable(props) {
 
   const handleSortChange = (e, data) => {
     let selectedSort = data.value;
-    console.log(selectedSort);
-    setItems(sortCoaches(items, "fees", selectedSort));
+    let coachAttribute = "";
+
+    switch (selectedSort) {
+      case "priceAsc":
+      case "priceDesc":
+        coachAttribute = "fees";
+        break;
+      case "rateAsc":
+      case "rateDesc":
+        coachAttribute = "total_rate";
+        break;
+      case "sort":
+        coachAttribute = "sort";
+        break;
+    }
+    if (coachAttribute != "sort") {
+      setItems(sortCoaches(items, coachAttribute, selectedSort));
+    }else{
+      setItems(sortCoaches(items, "id", selectedSort));
+    }
     setSelectedSort(selectedSort);
   };
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Sorting functions//
@@ -142,7 +162,10 @@ function SearchTable(props) {
                             <div className="text-center">
                               <a
                                 href={
-                                  "http://" + window.location.host + "/coaches/" + coach.id
+                                  "http://" +
+                                  window.location.host +
+                                  "/coaches/" +
+                                  coach.id
                                 }
                                 className="btn"
                               >

@@ -50,7 +50,6 @@ function SearchBar({ updateCoaches }) {
       searchParamsObj.city_id = cityId;
       searchParamsObj.district_id = districtId;
       searchParamsObj.name_en = nameEn;
-      searchParamsObj.page = 1;
 
       for (const key in searchParamsObj) {
         if (!searchParamsObj[key] || searchParamsObj[key] == "null") {
@@ -79,13 +78,18 @@ function SearchBar({ updateCoaches }) {
     const axios = require("axios");
     const config = {
       method: "get",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        'Access-Control-Allow-Origin': '*',
+      },
+      
       url: `http://127.0.0.1:8000/api/search?${searchQuery}`,
     };
     axios(config)
       .then((res) => {
         if (res.data.length) {
           updateCoaches(res.data);
-        }else{
+        } else {
           updateCoaches(["empty"]);
         }
       })

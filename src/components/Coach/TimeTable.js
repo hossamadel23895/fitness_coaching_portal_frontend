@@ -10,6 +10,8 @@ import Cookies from "universal-cookie";
 export default function TimeTable(props) {
   const navigate = useNavigate();
 
+  const alert = useAlert();
+
   const cookies = new Cookies();
   const isAuthenticated = cookies.get("jwt");
 
@@ -46,8 +48,34 @@ export default function TimeTable(props) {
     },
   };
 
-  const alert = useAlert();
   //Submit form to Book a Coach
+  // const submit = (index) => (e) => {
+  //   e.preventDefault();
+
+  //   if (isAuthenticated) {
+  //     let formdata = {};
+  //     formdata.address_id = document.getElementById("address_id" + index).value;
+  //     formdata.coach_id = document.getElementById("coach_id" + index).value;
+  //     formdata.client_id = props.client.id;
+  //     formdata.day = document.getElementById("day" + index).value;
+  //     formdata.time = document.getElementById("time" + index).value;
+
+  //     const axios = require("axios");
+  //     const config = {
+  //       method: "post",
+  //       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //       url: `http://127.0.0.1:8000/api/book/store`,
+  //     };
+  //     axios(config)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err.response.data.message);
+  //       });
+  //   }
+  // };
+
   const submit = (index) => (e) => {
     e.preventDefault();
     if (isAuthenticated) {
@@ -58,14 +86,13 @@ export default function TimeTable(props) {
       formdata.day = document.getElementById("day" + index).value;
       formdata.time = document.getElementById("time" + index).value;
       fetch(`http://127.0.0.1:8000/api/book/store`, {
-        method: "POST",
+        method: "post",
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formdata),
       })
-        .then(() => {
+        .then((res) => {
           alert.success("Appointment was reserved successfully");
           setTimeout(() => {
             window.location.href = "http://localhost:3006/my-appointments";
