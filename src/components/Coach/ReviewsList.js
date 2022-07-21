@@ -39,7 +39,7 @@ function ReviewsList(props) {
                             </div>
                             <div class="col-sm-2">
                                 <div class="rating text-center">
-                                    <i class="fas fa-star fa-3x">
+                                    <i class="fas fa-star fa-4x">
                                         <span>{review.rate}</span>
                                     </i>
                                 </div>

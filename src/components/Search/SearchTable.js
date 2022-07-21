@@ -137,7 +137,7 @@ function SearchTable(props) {
                       <h2>{coach.name_en}</h2>
                       <h6>
                         <i className="fa fa-book-bookmark"></i>
-                        {coach.specialist.name_en}
+                        Specialty : {coach.specialist.name_en}
                       </h6>
                       <h6>
                         <i className="fa fa-earth-americas"></i>
@@ -145,8 +145,12 @@ function SearchTable(props) {
                         {coach.district.name_en} - {coach.address_en}
                       </h6>
                       <h6>
+                        <i class="fa fa-user"></i>{" "}
+                       Age : {coach.age}
+                      </h6>
+                      <h6>
                         <i className="fa fa-money-bill-wave"></i>
-                        {coach.fees}
+                        Session : {coach.fees} LE
                       </h6>
                     </div>
 
@@ -154,8 +158,8 @@ function SearchTable(props) {
                       <div className="rating-and-booking">
                         <div>
                           <div className="rating mb-3 text-center">
-                            <i className="fas fa-star fa-3x">
-                              <span>{coach.total_rate | 0}</span>
+                            <i className="fas fa-star fa-4x">
+                              <span>{coach.total_rate}</span>
                             </i>
                           </div>
                           <div className="booking">

@@ -17,6 +17,7 @@ function CoachInfo(props) {
     })
       .then((response) => response.json())
       .then((res) => {
+        console.log(res);
         setCoachInfo(res);
         setDataLoaded(true);
       })
@@ -24,6 +25,7 @@ function CoachInfo(props) {
         console.log(error);
       });
   }
+  console.log(coachInfo[0].total_rate);
   return (
     dataLoaded && (
       <React.Fragment>
@@ -42,8 +44,8 @@ function CoachInfo(props) {
                       />
 
                       <div className="rating mt-4 text-center">
-                        <i className="fas fa-star fa-3x">
-                          <span>{coachInfo[0].total_rate | 0}</span>
+                        <i className="fas fa-star fa-4x">
+                          <span>{coachInfo[0].total_rate}</span>
                         </i>
                       </div>
                     </div>
@@ -52,13 +54,7 @@ function CoachInfo(props) {
                       <h3>{coachInfo[0].name_en}</h3>
                       <h6>
                         <i className="fa fa-book-bookmark"></i>
-                        {coachInfo[0].specialist
-                          ? coachInfo[0].specialist.name_en
-                          : " "}
-                      </h6>
-                      <h6>
-                        <i className="fa fa-money-bill-wave"></i>
-                        {coachInfo[0].fees}
+                        Specialty : {coachInfo[0].specialist.name_en}
                       </h6>
                       <h6>
                         <i className="fa fa-earth-americas"></i>
@@ -66,6 +62,13 @@ function CoachInfo(props) {
                         {coachInfo[0].city.name_en} -
                         {coachInfo[0].district.name_en} -{" "}
                         {coachInfo[0].address_en}
+                      </h6>
+                      <h6>
+                        <i class="fa fa-user"></i> Age : {coachInfo[0].age}
+                      </h6>
+                      <h6>
+                        <i className="fa fa-money-bill-wave"></i>
+                        Session : {coachInfo[0].fees} LE
                       </h6>
                     </div>
                     <div className="col-lg-5 col-sm-12 py-4 px-4">

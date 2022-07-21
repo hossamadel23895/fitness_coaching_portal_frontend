@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Moment from "moment";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -14,16 +14,6 @@ export default function TimeTable(props) {
 
   const cookies = new Cookies();
   const isAuthenticated = cookies.get("jwt");
-
-  const [redirect, setRedirect] = useState(false);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
 
   const responsive = {
     superLargeDesktop: {
@@ -48,49 +38,21 @@ export default function TimeTable(props) {
     },
   };
 
-  //Submit form to Book a Coach
-  // const submit = (index) => (e) => {
-  //   e.preventDefault();
-
-  //   if (isAuthenticated) {
-  //     let formdata = {};
-  //     formdata.address_id = document.getElementById("address_id" + index).value;
-  //     formdata.coach_id = document.getElementById("coach_id" + index).value;
-  //     formdata.client_id = props.client.id;
-  //     formdata.day = document.getElementById("day" + index).value;
-  //     formdata.time = document.getElementById("time" + index).value;
-
-  //     const axios = require("axios");
-  //     const config = {
-  //       method: "post",
-  //       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  //       url: `http://127.0.0.1:8000/api/book/store`,
-  //     };
-  //     axios(config)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.response.data.message);
-  //       });
-  //   }
-  // };
-
   const submit = (index) => (e) => {
     e.preventDefault();
     if (isAuthenticated) {
-      let formdata = {};
-      formdata.address_id = document.getElementById("address_id" + index).value;
-      formdata.coach_id = document.getElementById("coach_id" + index).value;
-      formdata.client_id = props.client.id;
-      formdata.day = document.getElementById("day" + index).value;
-      formdata.time = document.getElementById("time" + index).value;
+      let formData = {};
+      formData.address_id = document.getElementById("address_id" + index).value;
+      formData.coach_id = document.getElementById("coach_id" + index).value;
+      formData.client_id = props.client.id;
+      formData.day = document.getElementById("day" + index).value;
+      formData.time = document.getElementById("time" + index).value;
       fetch(`http://127.0.0.1:8000/api/book/store`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formdata),
+        body: JSON.stringify(formData),
       })
         .then((res) => {
           alert.success("Appointment was reserved successfully");
@@ -108,7 +70,7 @@ export default function TimeTable(props) {
   };
 
   //Get Time Tables of Specified Coach
-  function getTimeTables(coachId, addressID) {
+  function getTimeTables(coachId) {
     fetch(`http://localhost:8000/api/available-time/${coachId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -217,9 +179,7 @@ export default function TimeTable(props) {
       </div>
     );
   });
-  if (redirect) {
-    return <Navigate to="/my-appointments" />;
-  }
+
   return (
     <section className="booking-time">
       <div className="container">
@@ -237,7 +197,7 @@ export default function TimeTable(props) {
               draggable={false}
               showDots={true}
               responsive={responsive}
-              ssr={true} // means to render carousel on server-side.
+              ssr={true}
               infinite={true}
               autoPlaySpeed={1000}
               keyBoardControl={true}
@@ -249,10 +209,6 @@ export default function TimeTable(props) {
             >
               {cards}
             </Carousel>
-
-            {/* <Slider {...settings} focusOnSelect={true}>
-                    {cards}
-                </Slider> */}
           </div>
         </div>
       </div>
