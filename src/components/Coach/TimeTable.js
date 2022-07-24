@@ -86,12 +86,17 @@ export default function TimeTable(props) {
         console.log(error);
       });
   }
+  
   const [times, setTimes] = useState([{}]);
+
   const [is_rendered, setIsRendered] = useState(false);
+
   useEffect(() => {
     getTimeTables(props.id, 1);
   }, [is_rendered]);
+
   let times_table = times;
+
   let cards = times_table.map((item) => {
     return (
       <div class="flex-wrap p-4">

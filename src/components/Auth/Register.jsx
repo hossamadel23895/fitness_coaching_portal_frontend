@@ -113,6 +113,7 @@ function Register() {
                 type="text"
                 className="form-control"
                 required
+                placeholder="Name"
                 onChange={(e) => setName_en(e.target.value)}
               />
               <div className="input-group-append">
