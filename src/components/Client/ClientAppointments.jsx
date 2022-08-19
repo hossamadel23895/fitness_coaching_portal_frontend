@@ -9,7 +9,7 @@ function ClientAppointments({ client, updateMainComponent }) {
   const cancelAppointment = (book_id) => (e) => {
     e.preventDefault();
 
-    fetch(`http://127.0.0.1:8000/api/cancelAppointment/${book_id}`, {
+    fetch(`http://127.0.0.1:8001/api/cancelAppointment/${book_id}`, {
       method: "GET",
       credentials: "include",
     })

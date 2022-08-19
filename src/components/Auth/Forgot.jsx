@@ -11,7 +11,7 @@ function Forgot() {
   const submit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/api/forgot", {
+    fetch("http://localhost:8001/api/forgot", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

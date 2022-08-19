@@ -21,7 +21,7 @@ const Cities = ({ cityIdInitialValue, updateCityId, updateDistricts }) => {
   }, []);
 
   function getCitiesAPI() {
-    fetch(`http://127.0.0.1:8000/api/cities/5`, {
+    fetch(`http://127.0.0.1:8001/api/cities/5`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -43,7 +43,7 @@ const Cities = ({ cityIdInitialValue, updateCityId, updateDistricts }) => {
   }
 
   function getDistrictsAPI(cityID) {
-    return fetch(`http://127.0.0.1:8000/api/districts/${cityID}`)
+    return fetch(`http://127.0.0.1:8001/api/districts/${cityID}`)
       .then((response) => response.json())
       .then((res) => {
         var districts = [{ key: "dis", value: "null", text: "District" }];

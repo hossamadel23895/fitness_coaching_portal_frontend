@@ -70,7 +70,7 @@ export default function Profile(props) {
     formdata.append("password_confirm", passwordConfirm);
     formdata.append("gender", gender);
 
-    fetch(`http://127.0.0.1:8000/api/update/${props.client.id}?_method=PUT`, {
+    fetch(`http://127.0.0.1:8001/api/update/${props.client.id}?_method=PUT`, {
       method: "POST",
       headers: { "X-Requested-With": "XMLHttpRequest" },
       body: formdata,
@@ -100,7 +100,7 @@ export default function Profile(props) {
       <img
         className="rounded-circle img-thumbnail"
         style={{ width: 130, height: 130 }}
-        src={"http://127.0.0.1:8000/storage/" + props.client.image}
+        src={"http://127.0.0.1:8001/storage/" + props.client.image}
       />
     );
   } else {

@@ -16,7 +16,7 @@ const Specialties = ({ sendSpecialtyIdToParent, specialtyIdInitialValue }) => {
   }, []);
 
   function getSpecialtiesAPI() {
-    fetch(`http://127.0.0.1:8000/api/specialists`, {
+    fetch(`http://127.0.0.1:8001/api/specialists`, {
       method: "GET",
     })
       .then((response) => response.json())

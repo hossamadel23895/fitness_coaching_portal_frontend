@@ -83,7 +83,7 @@ function SearchBar({ updateCoaches }) {
         'Access-Control-Allow-Origin': '*',
       },
       
-      url: `http://127.0.0.1:8000/api/search?${searchQuery}`,
+      url: `http://127.0.0.1:8001/api/search?${searchQuery}`,
     };
     axios(config)
       .then((res) => {

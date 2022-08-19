@@ -32,7 +32,7 @@ function Register() {
   const submit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/sanctum/csrf-cookie", {
+    fetch("http://localhost:8001/sanctum/csrf-cookie", {
       method: "GET",
       headers: { "X-Requested-With": "XMLHttpRequest" },
       credentials: "include",
@@ -47,7 +47,7 @@ function Register() {
         formdata.append("date_of_birth", date_of_birth);
         formdata.append("gender", gender);
         formdata.append("image", image);
-        fetch("http://localhost:8000/api/register", {
+        fetch("http://localhost:8001/api/register", {
           method: "POST",
           headers: { "X-Requested-With": "XMLHttpRequest" },
           body: formdata,
@@ -77,7 +77,7 @@ function Register() {
     profileImage = (
       <img
         style={{ width: 100 }}
-        src={"http://127.0.0.1:8000/storage/images/clients/default.png"}
+        src={"http://127.0.0.1:8001/storage/images/clients/default.png"}
       />
     );
   } else {

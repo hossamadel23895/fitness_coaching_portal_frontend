@@ -11,7 +11,7 @@ function ReviewsList(props) {
     
     //Return All Feedback on Coach
     function getFeedbacks(coachId) {    
-        fetch(`http://localhost:8000/api/feedbacks/${coachId}`,{
+        fetch(`http://localhost:8001/api/feedbacks/${coachId}`,{
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
             credentials: 'include',

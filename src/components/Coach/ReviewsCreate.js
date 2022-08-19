@@ -22,7 +22,7 @@ function ReviewsCreate(props) {
       formData.client_id = 1;
       formData.coach_id = props.id;
 
-      fetch(`http://127.0.0.1:8000/api/feedbacks`, {
+      fetch(`http://127.0.0.1:8001/api/feedbacks`, {
         method: "POST",
         headers: {
           Accept: "application/json",

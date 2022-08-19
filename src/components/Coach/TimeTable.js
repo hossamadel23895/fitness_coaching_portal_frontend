@@ -47,7 +47,7 @@ export default function TimeTable(props) {
       formData.client_id = props.client.id;
       formData.day = document.getElementById("day" + index).value;
       formData.time = document.getElementById("time" + index).value;
-      fetch(`http://127.0.0.1:8000/api/book/store`, {
+      fetch(`http://127.0.0.1:8001/api/book/store`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export default function TimeTable(props) {
 
   //Get Time Tables of Specified Coach
   function getTimeTables(coachId) {
-    fetch(`http://localhost:8000/api/available-time/${coachId}`, {
+    fetch(`http://localhost:8001/api/available-time/${coachId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

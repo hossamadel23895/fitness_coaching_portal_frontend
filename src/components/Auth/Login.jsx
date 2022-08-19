@@ -22,7 +22,7 @@ export default function Login(props) {
   const [errors, setErrors] = useState({});
   const submit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8000/sanctum/csrf-cookie", {
+    fetch("http://localhost:8001/sanctum/csrf-cookie", {
       method: "GET",
       headers: { "X-Requested-With": "XMLHttpRequest" },
       credentials: "include",
@@ -31,7 +31,7 @@ export default function Login(props) {
         var formdata = new FormData();
         formdata.append("email", email);
         formdata.append("password", password);
-        fetch("http://localhost:8000/api/login", {
+        fetch("http://localhost:8001/api/login", {
           method: "POST",
           headers: { "X-Requested-With": "XMLHttpRequest" },
           credentials: "include",

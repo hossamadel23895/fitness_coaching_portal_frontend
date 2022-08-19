@@ -10,7 +10,7 @@ function CoachInfo(props) {
 
   //Get Coach Info
   function getCoachInfo(coachId) {
-    fetch(`http://localhost:8000/api/coaches/${coachId}`, {
+    fetch(`http://localhost:8001/api/coaches/${coachId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -39,7 +39,7 @@ function CoachInfo(props) {
                       <img
                         className="img-thumbnail photo"
                         src={
-                          "http://127.0.0.1:8000/storage/" + coachInfo[0].image
+                          "http://127.0.0.1:8001/storage/" + coachInfo[0].image
                         }
                       />
 

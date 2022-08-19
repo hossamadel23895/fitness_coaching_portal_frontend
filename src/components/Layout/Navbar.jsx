@@ -9,7 +9,7 @@ function Navbar(props) {
   const cookies = new Cookies();
   const isAuthenticated = cookies.get("jwt");
   const logout = () => {
-    fetch("http://localhost:8000/api/logout", {
+    fetch("http://localhost:8001/api/logout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -46,7 +46,7 @@ function Navbar(props) {
             style={{ width: 40, height: 40 }}
             className="rounded-circle"
             alt="profile pic"
-            src={"http://127.0.0.1:8000/storage/" + props.client.image}
+            src={"http://127.0.0.1:8001/storage/" + props.client.image}
           />
           <NavLink
             style={{ display: "inline-block" }}

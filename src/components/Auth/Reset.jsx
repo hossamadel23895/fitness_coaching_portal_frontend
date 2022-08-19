@@ -11,7 +11,7 @@ function Reset(props) {
 
     const token = props.match.params.token;
 
-    fetch("http://localhost:8000/api/reset", {
+    fetch("http://localhost:8001/api/reset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
